@@ -1,2 +1,2 @@
 # ttp
-TTP: A Text-Told Platformer *Unfinished*
+TTP: A Text-Told Platformer \*Unfinished\*
