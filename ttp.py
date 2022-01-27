@@ -32,7 +32,7 @@ levels = {
             "         ",
             "Level 2  "
             ],
-        "spawn":[1,4],
+        "spawn":[1,3],
         "goal":[8,3]
         },
     2:{
@@ -40,17 +40,35 @@ levels = {
             "MMMMMMMMMMMMMMMMMMMMM",
             "M                   M",
             "M                   M",
-            "M                M  F",
+            "M                   F",
             "MM            MM  MMM",
             "M M       MMM       M",
-            "M  MM  MM           M",
+            "M  MM  MM       MM  M",
             "MjijijijijijijijijijM",
             "MMMMMMMMMMMMMMMMMMMMM",
-            "         ",
-            "Level 2  "
+            "                     ",
+            "Level 2              "
             ],
-        "spawn":[1,4],
+        "spawn":[1,3],
         "goal":[20,3]
+        },
+    3:{
+        "layout":[
+            "MMMMMMMMMMMMMMMMMM",
+            "M                M",
+            "M                M",
+            "M                M",
+            "MM        M   Λ FM",
+            "M   Λ   M   MMMMMM",
+            "M MMMMM          M",
+            "M                M",
+            "MijijijijijijijijM",
+            "MMMMMMMMMMMMMMMMMM",
+            "                  ",
+            "Level 3           "
+            ],
+        "spawn":[1,3],
+        "goal":[16,4]
         }
     }
 
@@ -78,8 +96,8 @@ def jump(event):
         vy -= 0.025
 
 game.bind_all("<KeyPress-Right>",right)
-game.bind_all("<KeyPress-Left>",left)
 game.bind_all("<KeyPress-d>",right)
+game.bind_all("<KeyPress-Left>",left)
 game.bind_all("<KeyPress-a>",left)
 game.bind_all("<KeyPress-Up>",jump)
 game.bind_all("<KeyPress-space>",jump)
@@ -99,8 +117,15 @@ while True:
         vy = 0
     if pixrel(0,-1) in ["i","j"]:
         title.delete("1.0",END)
-        title.insert(END,"Game Over!")
+        title.insert(END,"Game Over! You fell in lava")
         tk.update()
+        sleep(1)
+        break
+    elif pixrel(0,0) == "Λ":
+        title.delete("1.0",END)
+        title.insert(END,"Game Over! You were spiked!")
+        tk.update()
+        sleep(1)
         break
     truey += vy
     coords[1] = round(truey)
