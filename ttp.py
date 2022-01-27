@@ -40,10 +40,10 @@ levels = {
             "MMMMMMMMMMMMMMMMMMMMM",
             "M                   M",
             "M                   M",
-            "M                   F",
+            "                    F",
             "MM            MM  MMM",
             "M M       MMM       M",
-            "M  MM  MM       MM  M",
+            "M  MMM MM       MM  M",
             "MjijijijijijijijijijM",
             "MMMMMMMMMMMMMMMMMMMMM",
             "                     ",
@@ -69,6 +69,24 @@ levels = {
             ],
         "spawn":[1,3],
         "goal":[16,4]
+        },
+    4:{
+        "layout":[
+            "MMMMMMMMMMMMMMMMMM",
+            "M                M",
+            "M       MMM      M",
+            "M                M",
+            "MM   Λ           M",
+            "M    MM          M",
+            "M  Λ             M",
+            "M MMM            M",
+            "MijijijijijijijijM",
+            "MMMMMMMMMMMMMMMMMM",
+            "                  ",
+            "Level 3           "
+            ],
+        "spawn":[1,1],
+        "goal":[16,4]
         }
     }
 
@@ -80,6 +98,12 @@ vy = 0
 def pixrel(x,y):
     return levels[level]["layout"][coords[1]-y][coords[0]-x]
 
+def xpos():
+    return coords[0]
+
+def ypos():
+    return coords[1]
+
 def right(event):
     global coords
     if not pixrel(-1,0) == "M":
@@ -87,7 +111,7 @@ def right(event):
 
 def left(event):
     global coords
-    if not pixrel(1,0) == "M":
+    if not pixrel(1,0) == "M" and xpos() > 1:
         coords[0] -= 1
 
 def jump(event):
