@@ -79,6 +79,8 @@ def jump(event):
 
 game.bind_all("<KeyPress-Right>",right)
 game.bind_all("<KeyPress-Left>",left)
+game.bind_all("<KeyPress-d>",right)
+game.bind_all("<KeyPress-a>",left)
 game.bind_all("<KeyPress-Up>",jump)
 game.bind_all("<KeyPress-space>",jump)
 
