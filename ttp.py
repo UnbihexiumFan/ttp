@@ -90,7 +90,7 @@ levels = {
         }
     }
 
-level = 4
+level = 0
 coords = levels[level]["spawn"]
 truey = coords[1]
 vy = 0
