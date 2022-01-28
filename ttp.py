@@ -7,6 +7,8 @@ title.pack()
 title.insert(END,"TTP: a Text-Told Platformer")
 game = Text(tk,width=27,height=15)
 game.pack()
+info = Text(tk,width=27,height=2)
+info.pack()
 tk.update()
 
 levels = {
@@ -17,10 +19,11 @@ levels = {
             "M      FM",
             "MMMMMMMMM",
             "         ",
-            "Level 1  "
+            "Level 1  ",
             ],
         "spawn":[1,2],
-        "goal":[7,2]
+        "goal":[7,2],
+        "info":"Left/right or a/d to move"
         },
     1:{
         "layout":[
@@ -33,7 +36,8 @@ levels = {
             "Level 2  "
             ],
         "spawn":[1,3],
-        "goal":[8,3]
+        "goal":[8,3],
+        "info":"Level Complete!"
         },
     2:{
         "layout":[
@@ -50,7 +54,8 @@ levels = {
             "Level 2              "
             ],
         "spawn":[1,3],
-        "goal":[20,3]
+        "goal":[20,3],
+        "info":"Use space/up to jump"
         },
     3:{
         "layout":[
@@ -68,7 +73,8 @@ levels = {
             "Level 3           "
             ],
         "spawn":[1,3],
-        "goal":[16,4]
+        "goal":[16,4],
+        "info":"Level Complete!\nBeware the spikes!"
         },
     4:{
         "layout":[
@@ -86,7 +92,8 @@ levels = {
             "Level 4           "
             ],
         "spawn":[1,1],
-        "goal":[16,4]
+        "goal":[16,4],
+        "info":"Level Complete!"
         }
     }
 
@@ -119,6 +126,10 @@ def jump(event):
     if pixrel(0,-1) == "M":
         vy -= 0.025
 
+def levelinfo():
+	info.delete("1.0",END)
+	info.insert(END,levels[level]["info"])
+
 game.bind_all("<KeyPress-Right>",right)
 game.bind_all("<KeyPress-d>",right)
 game.bind_all("<KeyPress-Left>",left)
@@ -126,10 +137,14 @@ game.bind_all("<KeyPress-a>",left)
 game.bind_all("<KeyPress-Up>",jump)
 game.bind_all("<KeyPress-space>",jump)
 
+levelinfo()
+
 while True:
     if coords == levels[level]["goal"]:
         level += 1
+        truey = levels[level]["spawn"][1]
         coords = levels[level]["spawn"]
+        levelinfo()
     vy += 0.0002
     if vy > 0.3:
         vy = 0.3
@@ -153,6 +168,17 @@ while True:
         break
     truey += vy
     coords[1] = round(truey)
+    leveltext = ""
+    linenum = 0
+    for line in levels[level]["layout"]:
+        line_ = line
+        if coords[1] == linenum:
+            line_ = line[:coords[0]]+"O"+line[coords[0]+1:]
+        leveltext += line_+"\n"
+        linenum += 1
+    game.delete("1.0",END)
+    game.insert(END,leveltext)
+    tk.update()
     leveltext = ""
     linenum = 0
     for line in levels[level]["layout"]:
