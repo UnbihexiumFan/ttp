@@ -74,23 +74,23 @@ levels = {
         "layout":[
             "MMMMMMMMMMMMMMMMMM",
             "M                M",
-            "M       MMM      M",
-            "M                M",
-            "MM   Λ           M",
-            "M    MM          M",
-            "M  Λ             M",
+            "M         M      M",
+            "M        M  Λ    M",
+            "MM    Λ M  MMMM  M",
+            "M    MM         FM",
+            "M  Λ            MM",
             "M MMM            M",
             "MijijijijijijijijM",
             "MMMMMMMMMMMMMMMMMM",
             "                  ",
-            "Level 3           "
+            "Level 4           "
             ],
         "spawn":[1,1],
         "goal":[16,4]
         }
     }
 
-level = 0
+level = 4
 coords = levels[level]["spawn"]
 truey = coords[1]
 vy = 0
