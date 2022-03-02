@@ -48,7 +48,7 @@ levels = {
             "MM            MM  MMM",
             "M M       MMM       M",
             "M  MMM MM       MM  M",
-            "MjijijijijijijijijijM",
+            "MijijijijijijijijijiM",
             "MMMMMMMMMMMMMMMMMMMMM",
             "                     ",
             "Level 2              "
@@ -94,7 +94,29 @@ levels = {
         "spawn":[1,1],
         "goal":[16,4],
         "info":"Level Complete!"
-        }
+        },
+    5:{
+        "layout":[
+            "MMMMM  ",
+            "M  FM  ",
+            "M  MM  ",
+            "M   M  ",
+            "M   M  ",
+            "M   M  ",
+            "MM  M  ",
+            "M   M  ",
+            "M   M  ",
+            "M   M  ",
+            "M T M  ",
+            "MijiM  ",
+            "MMMMM  ",
+            "       ",
+            "Level 5"
+            ],
+        "spawn":[1,5],
+        "goal":[3,1],
+        "info":"Level Complete!\nUse jump pads to jump high"
+        },
     }
 
 level = 0
@@ -113,18 +135,20 @@ def ypos():
 
 def right(event):
     global coords
-    if not pixrel(-1,0) == "M":
+    if not pixrel(-1,0) in ["M","T"]:
         coords[0] += 1
 
 def left(event):
     global coords
-    if not pixrel(1,0) == "M" and xpos() > 1:
+    if not pixrel(1,0) in ["M","T"] and xpos() > 1:
         coords[0] -= 1
 
 def jump(event):
     global vy
     if pixrel(0,-1) == "M":
         vy -= 0.025
+    elif pixrel(0,-1) == "T":
+        vy -= 0.07
 
 def levelinfo():
 	info.delete("1.0",END)
@@ -150,9 +174,9 @@ while True:
         vy = 0.3
     if vy < -0.3:
         vy = -0.3
-    if pixrel(0,1) == "M" and vy < 0:
+    if pixrel(0,1) in ["M","T"] and vy < 0:
         vy = 0
-    elif pixrel(0,-1) == "M" and vy > 0:
+    elif pixrel(0,-1) in ["M","T"]  and vy > 0:
         vy = 0
     if pixrel(0,-1) in ["i","j"]:
         title.delete("1.0",END)
@@ -168,17 +192,6 @@ while True:
         break
     truey += vy
     coords[1] = round(truey)
-    leveltext = ""
-    linenum = 0
-    for line in levels[level]["layout"]:
-        line_ = line
-        if coords[1] == linenum:
-            line_ = line[:coords[0]]+"O"+line[coords[0]+1:]
-        leveltext += line_+"\n"
-        linenum += 1
-    game.delete("1.0",END)
-    game.insert(END,leveltext)
-    tk.update()
     leveltext = ""
     linenum = 0
     for line in levels[level]["layout"]:
